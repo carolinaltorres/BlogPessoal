@@ -16,26 +16,31 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 public class SwaggerConfig {
 
 	@Bean
-	 public OpenAPI springBlogPessoalOpenAPI() {
+	 public OpenAPI springOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                		.title("Projeto Blog Pessoal")
-                		.description("Projeto Blog Pessoal - Generation Brasil")
-                        .version("v0.0.1")
-                .license(new License()
-                        .name("Blog Pessoal")
-                        .url("https://github.com/carolinaltorres/BlogPessoal"))
-                .contact(new Contact()
-                        .name("Conteudo Generation")
-                        .url("https://github.com/conteudoGeneration")
-                        .email("carolinalima2015@gmail.com")))
+	                		.title("Projeto Blog Pessoal")
+	                		.description("Projeto Blog Pessoal - Generation Brasil")
+	                        .version("v0.0.1")
+	                        .license(new License()
+	                        		.name("Blog Pessoal")
+	                        		.url("https://brazil.generation.org/>"))
+	                        .contact(new Contact()
+	                        		.name("Conteudo Generation")
+	                        		.url("<https://github.com/carolinaltorres/>")
+	                        		.email("carolinalima2015@gmail.com")))
                 .externalDocs(new ExternalDocumentation()
-                        .description("Github")
-                        .url("https://github.com/carolinaltorres/BlogPessoal"));
+                			.description("Github")
+                			.url("<https://github.com/carolinaltorres/BlogPessoal>"));
 	}	
 
+	private ApiResponse createApiResponse(String message) {
+		
+		return new ApiResponse().description(message);
+	}
+
 	@Bean
-	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
+	public OpenApiCustomiser customerGlobalResponseStatus() {
 
     return openApi -> {
         openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
@@ -43,19 +48,12 @@ public class SwaggerConfig {
             ApiResponses apiResponses = operation.getResponses();
 
             apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
-            apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!"));
-            apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!"));
-            apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
-            apiResponses.addApiResponse("401", createApiResponse("Acesso Não Autorizado!"));
-            apiResponses.addApiResponse("404", createApiResponse("Objeto Não Encontrado!"));
-            apiResponses.addApiResponse("500", createApiResponse("Erro na Aplicação!"));
+            apiResponses.addApiResponse("201", createApiResponse("Criado!"));
+            apiResponses.addApiResponse("400", createApiResponse("Erro de requisição!"));
+            apiResponses.addApiResponse("401", createApiResponse("Não autorizado!"));
+            apiResponses.addApiResponse("500", createApiResponse("Erro interno no servidor!"));
 
         	}));
     	};
-	}
-
-	private ApiResponse createApiResponse(String message) {
-		
-		return new ApiResponse().description(message);
 	}
 }
