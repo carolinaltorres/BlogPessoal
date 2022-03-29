@@ -29,9 +29,6 @@ public class Usuario {
     @NotNull(message = "O atributo nome é OBRIGATÓRIO.")
     @Size(min = 2, max = 100)
     private String nome;
-    
-    @Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caractéres.")
-	private String foto;
 
     @Schema(example = "email@email.com.br")
     @NotNull(message = "O atributo usuário é OBRIGATÓRIO.")
@@ -41,26 +38,32 @@ public class Usuario {
     @NotBlank(message = "O atributo senha é OBRIGATÓRIO.")
 	@Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
     private String senha;
+    
+    @Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caractéres.")
+	private String foto;
+    
+    private String tipo;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
    
-    public Usuario(long id, String nome, String foto, String usuario,String senha) {
+    public Usuario(long id, String nome, String usuario,String senha, String foto, String tipo) {
 		this.id = id;
 		this.nome = nome;
-		this.foto = foto;
 		this.usuario = usuario;
 		this.senha = senha;
+		this.foto = foto;
+		this.tipo = tipo;
 	}
     
 	public Usuario() {}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -70,14 +73,6 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
 	}
 
 	public String getUsuario() {
@@ -94,6 +89,22 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public List<Postagem> getPostagem() {
